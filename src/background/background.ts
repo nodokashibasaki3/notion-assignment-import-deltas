@@ -44,9 +44,17 @@ async function performSync() {
     // We'll assume for now we use the one from the last manual scrape or a setting.
     // For simplicity in this demo, we'll look at the saved course list.
 
-    // TODO: Properly handle multiple course discovery via Canvas API
-    // This is a placeholder for the full multi-course discovery logic
-    const canvasClient = new CanvasClient({ origin: 'https://canvas.auckland.ac.nz', courseId: '' });
+    // Extract the Canvas origin from saved assignments
+    const savedAssignments = await Storage.getSavedAssignments();
+    const firstAssignment = Object.values(savedAssignments).flat()[0];
+
+    if (!firstAssignment?.url) {
+        console.warn('No saved assignments found. Cannot determine Canvas origin for background sync.');
+        return;
+    }
+
+    const origin = new URL(firstAssignment.url).origin;
+    const canvasClient = new CanvasClient({ origin, courseId: '' });
     const courses = await canvasClient.fetchCourses();
 
     if (!courses) {

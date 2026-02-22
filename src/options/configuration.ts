@@ -12,7 +12,7 @@ import {
 import { NullIfEmpty, SavedFields, SavedOptions } from '../types/storage';
 import { valueof } from '../types/utils';
 
-export type SupportedTypes = NullIfEmpty<string> | boolean;
+export type SupportedTypes = NullIfEmpty<string> | boolean | number;
 
 interface Readable {
 	validate(force?: boolean): Promise<SupportedTypes | typeof InputFieldValidator.INVALID_INPUT>;
@@ -563,9 +563,7 @@ export const CONFIGURATION: {
 			syncInterval: {
 				defaultValue: 60,
 				get input() {
-					// @ts-expect-error type mismatch
 					delete (<Partial<typeof this>>this).input;
-					// @ts-expect-error type mismatch
 					return this.input = Input.getInstance<InputElementId>({
 						id: 'background-sync-interval',
 						Validator: RequiredStringField, // Simplified for now, should ideally be numeric validator
