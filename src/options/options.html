@@ -110,6 +110,27 @@
       </div>
     </div>
 
+    <h3>Background Sync</h3>
+    <div class='tile'>
+      <div class='segmented-control-group'>
+        <label class='required' for='background-sync-enabled'>Automatic background sync</label>
+        <div class='segmented-control-wrapper'>
+          <div class='segmented-control row' id='background-sync-enabled'>
+            <input checked type='radio' name='background-sync-enabled' value='background-sync-disabled' id='background-sync-disabled'>
+            <label for='background-sync-disabled'>Disabled</label>
+
+            <input type='radio' name='background-sync-enabled' value='background-sync-enabled-button' id='background-sync-enabled-button'>
+            <label for='background-sync-enabled-button'>Enabled</label>
+          </div>
+        </div>
+      </div>
+
+      <div class='hidden'>
+        <label class='required' for='background-sync-interval'>Sync interval (minutes)</label>
+        <input type='number' id='background-sync-interval' name='background-sync-interval' class='row' min='15' step='15'>
+      </div>
+    </div>
+
     <h3 class='advanced-options hidden'>Course Code Overrides</h3>
     <div class='tile advanced-options hidden'>
       <div id='course-code-overrides-group' class='row'>
